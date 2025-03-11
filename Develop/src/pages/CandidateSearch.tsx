@@ -38,6 +38,13 @@ const CandidateSearch = () => {
 
   console.log(currentCandidate);
 
+  function saveUser () {
+    const savedUsers = localStorage.getItem("candidates") ? JSON.parse(localStorage.getItem("candidates")!) : [];
+    savedUsers.push(currentCandidate);
+    localStorage.setItem("candidates", JSON.stringify(savedUsers));
+    setIndex(index + 1);
+  }
+
   return( 
     <>
       <h1>CandidateSearch</h1>
@@ -62,12 +69,7 @@ const CandidateSearch = () => {
                 window.location.reload() // Reload the page 
                 }}>-</button>
             
-              <button className="greenButton" onClick={ () => {
-                setIndex(index + 1);
-                const existingCandidates = JSON.parse(localStorage.getItem('candidates') || '[]');
-                const updatedCandidates = [...existingCandidates, currentCandidate];
-                localStorage.setItem('savedCandidates', JSON.stringify(updatedCandidates));
-              }}>+</button>
+              <button className="greenButton" onClick={saveUser}>+</button>
             
           </th>
         </tbody>
